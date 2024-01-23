@@ -1,6 +1,6 @@
 # msc-any-hint
 
-[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/msc-hint) [![DeepScan grade](https://deepscan.io/api/teams/16372/projects/26360/branches/836753/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=16372&pid=26360&bid=836753)
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/msc-any-hint) [![DeepScan grade](https://deepscan.io/api/teams/16372/projects/26360/branches/836753/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=16372&pid=26360&bid=836753)
 
 Hint is a very common UI effect to help user easy understand particular nouns. With &lt;msc-any-hint />, developers could adopt this feature to web page easier. Although &lt;msc-any-hint /> looks like same with [&lt;msc-hint />](https://github.com/meistudioli/msc-hint) , but it release summary for developers. That means developers could customize any summary they like.
 
