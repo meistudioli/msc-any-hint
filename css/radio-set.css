@@ -1,0 +1,70 @@
+/*
+ * example
+  <div class="radio-set radio-set--enable-dark-mode">
+    <input id="my-radio" type="radio" name="radio" value="0" />
+    <label class="radio-set__label" for="my-radio"></label>
+  </div>
+ */
+
+.radio-set {
+  --size: 1.25em;
+  --border-radius: var(--size);
+  --duration: 100ms;
+  --timing-function: cubic-bezier(.4,0,.2,1);
+
+  /* normal */
+  --accent-color: var(--default-accent-color, rgba(42 108 246));
+  --border-color: var(--default-border-color, rgba(131 138 146));
+  --background-color: var(--default-background-color, rgba(255 255 255));
+  --dot-color: var(--default-dot-color, var(--accent-color));
+  
+  /* disabled */
+  --border-color--disabled: var(--default-border-color--disabled, rgba(178 185 192));
+  --background-color--disabled: var(--default-background-color--disabled, rgba(255 255 255));
+  --dot-color--disabled: var(--default-dot-color--disabled, rgba(178 185 192));
+}
+
+.radio-set__label {
+  --dot-scale-normal: .001;
+  --dot-scale-active: 1;
+  --dot-scale: var(--dot-scale-normal); 
+}
+
+.radio-set input:checked~.radio-set__label {
+  --border-color: var(--accent-color);
+  --dot-scale: var(--dot-scale-active);
+}
+
+.radio-set input:not(:disabled):focus-visible~.radio-set__label {
+  --border-color: var(--accent-color);
+}
+
+[inert] .radio-set input~.radio-set__label,
+.radio-set input:disabled~.radio-set__label {
+  --border-color: var(--border-color--disabled);
+  --background-color: var(--background-color--disabled);
+  --dot-color: var(--dot-color--disabled);
+}
+
+.radio-set{position:relative;inline-size:var(--border-radius);aspect-ratio:1/1;overflow:hidden;}
+.radio-set input{position:absolute;top:-100%;outline:0 none;}
+.radio-set__label{position:relative;inline-size:100%;block-size:100%;background-color:var(--background-color);display:block;border-radius:var(--border-radius);overflow:hidden;}
+.radio-set__label::before{position:absolute;inset-inline-start:0;inset-block-start:0;content:'';inline-size:100%;block-size:100%;border-radius:var(--size);box-shadow:inset 0 0 0 2px var(--border-color);box-sizing:border-box;transition:box-shadow var(--duration) var(--timing-function);will-change:box-shadow;}
+.radio-set__label::after{position:absolute;inset-inline:0;inset-block:0;content:'';inline-size:8px;block-size:8px;margin:auto;border-radius:8px;background-color:var(--dot-color);transition:transform var(--duration) var(--timing-function);will-change:transform;transform:scale(var(--dot-scale));}
+
+@media (hover: hover) {
+  .radio-set input:not(:disabled)~.radio-set__label:hover {
+    --border-color: var(--accent-color);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .radio-set {
+    --default-accent-color: rgba(75 168 248);
+    --default-border-color: rgba(131 138 146);
+    --default-background-color: rgba(0 0 0);
+
+    --default-border-color--disabled: rgba(131 138 146);
+    --default-background-color--disabled: rgba(44 54 63);
+  }
+}

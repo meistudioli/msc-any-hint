@@ -1,0 +1,208 @@
+/*
+ * html usage:
+  <button
+    class="buttons"
+    data-type="primary"
+    data-size="small"
+  >
+    Button
+  </button>
+*/
+
+.buttons {
+/*  --default-border-color: transparent;
+  --default-background-color: rgba(var(--dory));
+  --default-text-color: rgba(var(--white));
+
+  --border-size: 2px;
+  --border-color: var(--default-border-color);
+  --background-color: var(--default-background-color);
+  --color: var(--default-text-color);*/
+
+  --border-size: 2px;
+  --border-color: var(--default-border-color, transparent);
+  --background-color: var(--default-background-color, rgba(var(--dory)));
+  --color: var(--default-text-color, rgba(var(--white)));
+  --justify-content: var(--default-justify-content, center);
+
+  --font-size: 14px;
+  --block-size: 32px;
+  --padding-inline: 24px;
+  --gap: 4px;
+
+  --box-shadow: 0 0 0 transparent;
+  --border-radius: var(--block-size);
+  --btn-active: scale(.97);
+
+  --overlay-opacity-normal: 0;
+  --overlay-opacity-active: .2;
+  --overlay-opacity: var(--overlay-opacity-normal);
+  --overlay-color: var(--inkwell);
+  --overlay: rgba(var(--overlay-color)/var(--overlay-opacity));
+
+  --transition: background-color 200ms var(--transition-timing-function);
+}
+
+.buttons{position:relative;font-size:var(--font-size);color:var(--color);font-family:YahooSans,'Helvetica Neue',Helvetica,Arial,sans-serif;inline-size:fit-content;inline-size:-moz-fit-content;block-size:var(--block-size);background:var(--background-color);padding-inline:var(--padding-inline);border-radius:var(--border-radius);box-sizing:border-box;appearance:none;box-shadow:var(--box-shadow);display:flex;gap:var(--gap);align-items:center;overflow:hidden;border:0 none;transition:var(--transition);justify-content:var(--justify-content);}
+.buttons::before{position:absolute;inset-inline-start:0;inset-block-start:0;inline-size:100%;block-size:100%;box-sizing:border-box;border:var(--border-size) solid var(--border-color);border-radius:var(--border-radius);content:'';}
+.buttons::after{position:absolute;inset-inline-start:0;inset-block-start:0;inline-size:100%;block-size:100%;background-color:var(--overlay);content:'';pointer-events:none;z-index:1;transition:var(--transition);}
+.buttons:focus,
+.buttons:focus-visible{outline:0 none;}
+.buttons:active{transform:var(--btn-active);}
+.buttons:focus-visible{--overlay-opacity:var(--overlay-opacity-active);}
+.buttons--full{inline-size:100%;justify-content:center;}
+
+/*
+ * types: https://git.vzbuilders.com/pages/fuji-design/fuji-docs/app/buttonsTypes.html
+ * take light background spec only
+ */
+.buttons[data-type='primary'] {
+  --default-background-color: rgba(var(--dory));
+  --color: rgba(var(--white));
+  --border-color: transparent;
+  --overlay-color: var(--inkwell);
+}
+
+.buttons[data-type='primary-with-shadow'] {
+  --default-background-color: rgba(var(--white));
+  --default-text-color: rgba(var(--dory));
+  --border-color: transparent;
+  --box-shadow: var(--shadow-elevations-3);
+  --overlay-color: var(--inkwell);
+}
+
+.buttons[data-type='secondary1'] {
+  --default-text-color: rgba(var(--dory));
+  --background-color: transparent;
+  --border-color: var(--color);
+  --overlay-color: var(--dirty-seagull);
+}
+
+.buttons[data-type='secondary2'] {
+  --default-text-color: rgba(var(--dory));
+  --background-color: transparent;
+  --border-color: rgba(var(--dirty-seagull));
+  --overlay-color: var(--dirty-seagull);
+}
+
+.buttons[data-type='ghost'] {
+  --default-text-color: rgba(var(--dory));
+  --border-color: transparent;
+  --background-color: transparent;
+  --overlay-color: var(--dirty-seagull);
+}
+
+/*
+ * sizes: https://git.vzbuilders.com/pages/fuji-design/fuji-docs/app/buttonsTypes.html;
+ */
+.buttons[data-size='xx-small'] {
+  --font-size: 12px;
+  --block-size: 24px;
+  --padding-inline: 16px;
+  --gap: 4px;
+}
+
+.buttons[data-size='x-small'] {
+  --font-size: 12px;
+  --block-size: 28px;
+  --padding-inline: 20px;
+  --gap: 4px;
+}
+
+.buttons[data-size='small'] {
+  --font-size: 14px;
+  --block-size: 32px;
+  --padding-inline: 24px;
+  --gap: 4px;
+}
+
+.buttons[data-size='medium'] {
+  --font-size: 14px;
+  --block-size: 36px;
+  --padding-inline: 28px;
+  --gap: 8px;
+}
+
+.buttons[data-size='large'] {
+  --font-size: 16px;
+  --block-size: 44px;
+  --padding-inline: 36px;
+  --gap: 8px;
+}
+
+.buttons[data-size='x-large'] {
+  --font-size: 18px;
+  --block-size: 56px;
+  --padding-inline: 44px;
+  --gap: 8px;
+}
+
+/*
+ * disable: https://git.vzbuilders.com/pages/fuji-design/fuji-docs/app/buttonsInactive.html
+ */
+.buttons[data-type='primary'][disabled],
+.buttons[data-type='primary-with-shadow'][disabled] {
+  --background-color: rgba(var(--grey-hair));
+  --color: rgba(var(--bob));
+}
+
+.buttons[data-type='secondary1'][disabled] {
+  --background-color: transparent;
+  --color: rgba(var(--bob));
+  --border-color: rgba(var(--dirty-seagull));
+}
+
+.buttons[data-type='secondary2'][disabled] {
+  --background-color: transparent;
+  --color: rgba(var(--bob));
+  --border-color: rgba(var(--bob)/.5);
+}
+
+.buttons[data-type='ghost'][disabled] {
+  --background-color: transparent;
+  --color: rgba(var(--bob));
+  --border-color: transparent;
+}
+
+@media (hover: hover) {
+  .buttons:hover {
+    --overlay-opacity: var(--overlay-opacity-active);
+  }
+
+  .buttons[disabled]:hover {
+    --overlay-opacity-active: 0;
+    --btn-active: scale(1);
+  }
+}
+
+@font-face {
+  font-family: YahooSans;
+  src: url('https://www.yahoo.com/sy/os/fontserver/YahooSans/Regular.woff2') format('woff2'),url('https://www.yahoo.com/sy/os/fontserver/YahooSans/Regular.woff') format('woff'),url('https://www.yahoo.com/sy/os/fontserver/YahooSans/Regular.ttf') format('ttf');
+  font-weight: normal;
+  font-style: normal;
+  font-display: fallback
+}
+
+@font-face {
+  font-family: YahooSans;
+  src: url('https://www.yahoo.com/sy/os/fontserver/YahooSans/Semibold.woff2') format('woff2'),url('https://www.yahoo.com/sy/os/fontserver/YahooSans/Semibold.woff') format('woff'),url('https://www.yahoo.com/sy/os/fontserver/YahooSans/Semibold.ttf') format('ttf');
+  font-weight: 600;
+  font-style: normal;
+  font-display: fallback
+}
+
+@font-face {
+  font-family: YahooSans;
+  src: url('https://www.yahoo.com/sy/os/fontserver/YahooSans/Bold.woff2') format('woff2'),url('https://www.yahoo.com/sy/os/fontserver/YahooSans/Bold.woff') format('woff'),url('https://www.yahoo.com/sy/os/fontserver/YahooSans/Bold.ttf') format('ttf');
+  font-weight: 700;
+  font-style: normal;
+  font-display: fallback
+}
+
+@font-face {
+  font-family: YahooSans;
+  src: url('https://www.yahoo.com/sy/os/fontserver/YahooSans/ExtraBold.woff2') format('woff2'),url('https://www.yahoo.com/sy/os/fontserver/YahooSans/ExtraBold.woff') format('woff'),url('https://www.yahoo.com/sy/os/fontserver/YahooSans/ExtraBold.ttf') format('ttf');
+  font-weight: 800;
+  font-style: normal;
+  font-display: fallback
+}

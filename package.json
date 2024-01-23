@@ -1,0 +1,25 @@
+{
+  "name": "msc-any-hint",
+  "version": "1.0.0",
+  "description": "Hint is a very common UI effect to help user easy understand particular nouns. With <msc-any-hint />, developers could adopt this feature to web page easier.",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meistudioli/msc-any-hint.git"
+  },
+  "keywords": [
+    "web",
+    "front-end",
+    "web component",
+    "hint"
+  ],
+  "author": "Paul Li",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/meistudioli/msc-any-hint/issues"
+  },
+  "homepage": "https://github.com/meistudioli/msc-any-hint#readme"
+}
