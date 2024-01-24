@@ -74,7 +74,7 @@ Developers could apply styles to decorate &lt;msc-hint />'s looking.
 
 ```html
 <style>
-msc-hint {
+msc-any-hint {
   --msc-any-hint-gap: 8px;
 
   --msc-any-hint-panel-border-radius: 8px;

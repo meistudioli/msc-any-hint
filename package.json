@@ -1,6 +1,6 @@
 {
   "name": "msc-any-hint",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Hint is a very common UI effect to help user easy understand particular nouns. With <msc-any-hint />, developers could adopt this feature to web page easier.",
   "main": "index.html",
   "scripts": {
