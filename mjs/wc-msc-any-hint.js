@@ -3,9 +3,10 @@ import { _wccss } from './common-css.js';
 
 const defaults = {
   hover: false,
+  autoposition: false
 };
 
-const booleanAttrs = ['hover']; // booleanAttrs default should be false
+const booleanAttrs = ['hover', 'autoposition']; // booleanAttrs default should be false
 const objectAttrs = [];
 const custumEvents = {};
 
@@ -107,6 +108,8 @@ ${_wccss}
   --transform-origin-vertical: 100%;
   --inset-block: calc(var(--gap) * -1) auto;
 }
+
+.main__panel--mutation{}
 </style>
 
 <div class="main" ontouchstart="" tabindex="0">
@@ -175,14 +178,17 @@ export class MscAnyHint extends HTMLElement {
 
     // data
     this.#data = {
-      controller: ''
+      controller: '',
+      refreshController: ''
     };
 
     // nodes
     this.#nodes = {
       styleSheet: this.shadowRoot.querySelector('style'),
       main: this.shadowRoot.querySelector('.main'),
-      button: this.shadowRoot.querySelector('.main__trigger')
+      button: this.shadowRoot.querySelector('.main__trigger'),
+      panel: this.shadowRoot.querySelector('.main__panel__ens'),
+      panelAnchor: this.shadowRoot.querySelector('.main__panel')
     };
 
     // config
@@ -190,6 +196,9 @@ export class MscAnyHint extends HTMLElement {
       ...defaults,
       ...config // new MscAnyHint(config)
     };
+
+    // evts
+    this._onRefresh = this._onRefresh.bind(this);
   }
 
   async connectedCallback() {
@@ -214,6 +223,10 @@ export class MscAnyHint extends HTMLElement {
     if (this.#data?.controller) {
       this.#data.controller.abort();
     }
+
+    if (this.#data?.refreshController) {
+      this.#data.refreshController.abort();
+    }
   }
 
   #format(attrName, oldValue, newValue) {
@@ -227,6 +240,7 @@ export class MscAnyHint extends HTMLElement {
       }
     } else {
       switch (attrName) {
+        case 'autoposition':
         case 'hover':
           this.#config[attrName] = true;
           break;
@@ -242,6 +256,25 @@ export class MscAnyHint extends HTMLElement {
     this.#format(attrName, oldValue, newValue);
 
     switch (attrName) {
+      case 'autoposition': {
+        this.#nodes.panelAnchor.classList.remove('main__panel--mutation');
+        
+        if (this.autoposition) {
+          this.#data.refreshController = new AbortController();
+          const signal = this.#data.refreshController.signal;
+
+          window.addEventListener('resize', this._onRefresh, { signal });
+          document.addEventListener('scroll', this._onRefresh, { passive:true, signal });
+        
+          this._onRefresh();
+        } else {
+          if (this.#data?.refreshController) {
+            this.#data.refreshController.abort();
+          }
+        }
+        break;
+      }
+
       case 'hover':
         this.#nodes.main.classList.toggle('main--hover', this.hover);
         break;
@@ -287,6 +320,88 @@ export class MscAnyHint extends HTMLElement {
 
   get hover() {
     return this.#config.hover;
+  }
+
+  set autoposition(value) {
+    this.toggleAttribute('autoposition', Boolean(value));
+  }
+
+  get autoposition() {
+    return this.#config.autoposition;
+  }
+
+  _onRefresh() {
+    if (!this.autoposition) {
+      return;
+    }
+
+    const { panel, panelAnchor, styleSheet } = this.#nodes;
+
+    panelAnchor.classList.remove('main__panel--mutation');
+
+    const { width:vW, height:vH } = _wcl.getViewportSize();
+    const { x, y } = _wcl.getPosition(panel);
+    const pX = x - _wcl.scrollX;
+    const pY = y - _wcl.scrollY;
+    const { width, height } = _wcl.getSize(panel);
+    const { horizontalAlign, verticalAlign } = this.dataset;
+    const defaults = {
+      '--vertical': 'start',
+      '--horizontal': 'center',
+      '--inset-block': 'auto calc(var(--gap) * -1)',
+      '--transform-origin-horizontal': '50%',
+      '--transform-origin-vertical': '0%',
+      ...(horizontalAlign === 'start' && {
+        '--horizontal': 'start',
+        '--transform-origin-horizontal': '0%'
+      }),
+      ...(horizontalAlign === 'end' && {
+        '--horizontal': 'end',
+        '--transform-origin-horizontal': '100%'
+      }),
+      ...(verticalAlign === 'start' && {
+        '--vertical': 'end',
+        '--transform-origin-vertical': '100%',
+        '--inset-block': 'calc(var(--gap) * -1) auto'
+      })
+    };
+    const needMutate = (pX < 0) || (pX + width > vW) || (pY < 0) || (pY + height > vH)
+      ? true
+      : false;
+
+    if (needMutate) {
+      _wcl.addStylesheetRules(
+        '.main .main__panel.main__panel--mutation',
+        {
+          ...defaults,
+          ...(pX < 0 && {
+            '--horizontal': 'start',
+            '--transform-origin-horizontal': '0%'
+          }),
+          ...((pX + width > vW) && {
+            '--horizontal': 'end',
+            '--transform-origin-horizontal': '100%'
+          }),
+          ...((pY < 0) && {
+            '--vertical': 'start',
+            '--inset-block': 'auto calc(var(--gap) * -1)',
+            '--transform-origin-vertical': '0%',
+          }),
+          ...((pY + height > vH) && {
+            '--vertical': 'end',
+            '--transform-origin-vertical': '100%',
+            '--inset-block': 'calc(var(--gap) * -1) auto'
+          }),
+        },
+        styleSheet
+      );
+    }
+
+    panelAnchor.classList.toggle('main__panel--mutation', needMutate);
+  }
+
+  refresh() {
+    this._onRefresh();
   }
 }
 

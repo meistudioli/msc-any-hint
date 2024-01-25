@@ -386,6 +386,33 @@ msc-any-pip:not(:defined){visibility:hidden;}
           </div>
         </div>
       </li>
+
+      <li class="adjustments__row">
+        <p class="adjustments__row__subject">Auto Position：</p>
+        <div class="adjustments__row__content">
+          <div class="il-pair a11y-block-link">
+            <div class="radio-set">
+              <input id="autoposition-0" type="radio" name="autoposition" value="yes" />
+              <label class="radio-set__label" for="autoposition-0"></label>
+            </div>
+
+            <label for="autoposition-0">
+              Yes
+            </label>
+          </div>
+
+          <div class="il-pair a11y-block-link">
+            <div class="radio-set">
+              <input id="autoposition-1" type="radio" name="autoposition" value="no" checked />
+              <label class="radio-set__label" for="autoposition-1"></label>
+            </div>
+
+            <label for="autoposition-1">
+              No
+            </label>
+          </div>
+        </div>
+      </li>
     </ul>
   </form>
 
@@ -400,6 +427,7 @@ customElements.whenDefined('msc-any-hint').then(() => {
 
     hint.dataset.horizontalAlign = fd['horizontal-align'];
     hint.dataset.verticalAlign = fd['vertical-align'];
+    hint.autoposition = fd['autoposition'] === 'yes';
     hint.hover = fd['hover'] === 'yes';
   };
 

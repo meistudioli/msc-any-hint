@@ -129,12 +129,28 @@ Set hover able for &lt;msc-hint />. Once setting, &lt;msc-hint /> will popup pan
 </msc-any-hint>
 ```
 
+- **autoposition**
+
+Set autoposition for &lt;msc-any-hint />. Once setting, &lt;msc-any-hint /> will auto position popup panel. Default is `false`（not set）.
+
+```html
+<msc-any-hint autoposition>
+  ...
+</msc-any-hint>
+```
+
+## Method
+
+| Method Signature | Description |
+| ----------- | ----------- |
+| refresh() | Force refresh &lt;msc-any-hint />. (active only when autoposition set) |
+
 ## Property
 
 | Property Name | Type | Description |
 | ----------- | ----------- | ----------- |
 | hover | Boolean | Getter / Setter for hover. Default is false. |
-
+| autoposition | Boolean | Getter / Setter for autoposition. Default is false. |
 
 ## Reference
 - [&lt;msc-any-hint /> demo](https://blog.lalacube.com/mei/webComponent_msc-any-hint.html)
